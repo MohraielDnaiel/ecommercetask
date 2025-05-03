@@ -1,9 +1,11 @@
 class Product {
-  final String id;
-  final String name;
-  final String image;
-  final double price;
-  final String description;
+  String id;
+  String name;
+  String image;
+  double price;
+  String description;
+  Map<String, dynamic> attributes;
+   bool isFavorite; // New field to store attributes (e.g., size, color)
 
   Product({
     required this.id,
@@ -11,5 +13,14 @@ class Product {
     required this.image,
     required this.price,
     required this.description,
+    this.attributes = const {},
+       this.isFavorite = false,
   });
+
+ 
+
+  // Method to update attributes
+  void updateAttributes(Map<String, dynamic> newAttributes) {
+    attributes = newAttributes;
+  }
 }
