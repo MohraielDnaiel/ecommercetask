@@ -97,7 +97,7 @@ class FavoritesPage extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      product.image ?? '', // Use brand if available
+                                      product.image, // Use brand if available
                                       style: const TextStyle(
                                         fontSize: 12,
                                         color: Colors.grey,

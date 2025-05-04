@@ -1,9 +1,42 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp/presentation/pages/product/home_page.dart';
+import 'package:flutterapp/providers/auth_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../product/home_page.dart';
 
-
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+void _handleLogin() async {
+  final authProvider = Provider.of<AuthProvider>(context, listen: false);
+  final accessToken = await authProvider.login(
+      _emailController.text, _passwordController.text);
+
+  if (accessToken != null) {
+    // Store the access token
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('access_token', accessToken );
+
+    // Navigate to Home Screen after successful login
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (_) => const HomeScreen()),
+    );
+  } else {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Login failed')),
+    );
+  }
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -16,15 +49,11 @@ class LoginScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text('Login', style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 10),
-            Text(
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus justo elit, semper tristique tempus sollicitudin.',
-              style: TextStyle(fontSize: 14, color: Colors.grey[700]),
-            ),
             const SizedBox(height: 30),
             TextField(
+              controller: _emailController,
               decoration: InputDecoration(
-                hintText: 'Your Email',
+                hintText: 'Your Username',
                 filled: true,
                 fillColor: Colors.white,
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(30), borderSide: BorderSide.none),
@@ -32,6 +61,7 @@ class LoginScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             TextField(
+              controller: _passwordController,
               obscureText: true,
               decoration: InputDecoration(
                 hintText: 'Your Password',
@@ -40,15 +70,10 @@ class LoginScreen extends StatelessWidget {
                 border: OutlineInputBorder(borderRadius: BorderRadius.circular(30), borderSide: BorderSide.none),
               ),
             ),
-            const SizedBox(height: 10),
-            const Align(
-              alignment: Alignment.centerRight,
-              child: Text('Recover password', style: TextStyle(color: Colors.black)),
-            ),
             const SizedBox(height: 20),
             Center(
               child: ElevatedButton(
-                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const HomeScreen())),
+                onPressed: _handleLogin,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.black,
                   padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 12),
@@ -57,23 +82,9 @@ class LoginScreen extends StatelessWidget {
                 child: const Text('Login'),
               ),
             ),
-            const SizedBox(height: 20),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.g_mobiledata, size: 30),
-                SizedBox(width: 20),
-                Icon(Icons.facebook, size: 30),
-                SizedBox(width: 20),
-                Icon(Icons.apple, size: 30),
-              ],
-            ),
-            const SizedBox(height: 20),
-            const Center(child: Text("Don't have an account? Sign Up"))
           ],
         ),
       ),
     );
   }
 }
-

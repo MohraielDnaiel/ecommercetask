@@ -51,6 +51,7 @@ dependencies:
   # JSON serialization
   json_annotation: ^4.8.1
   equatable: ^2.0.5
+  provider: ^6.1.0
 
 
   # The following adds the Cupertino Icons font to your application.

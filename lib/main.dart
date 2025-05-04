@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapp/core/di/locator.dart';
 import 'package:flutterapp/presentation/pages/auth/login_page.dart';
 import 'package:flutterapp/presentation/pages/auth/splash_page.dart';
 import 'package:flutterapp/presentation/pages/product/MainNavigation.dart';
@@ -6,16 +7,19 @@ import 'package:flutterapp/presentation/pages/product/cart_page.dart';
 import 'package:flutterapp/providers/favoritesProvider.dart';
 import 'package:flutterapp/providers/product_provider.dart';
 import 'package:flutterapp/providers/cart_provider.dart';
-// ignore: depend_on_referenced_packages
+import 'package:flutterapp/providers/auth_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  /// ✅ Register dependencies first!
+  setupLocator();
+
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ProductProvider()),
         ChangeNotifierProxyProvider<ProductProvider, CartProvider>(
-          create: (context) => CartProvider([]),
+          create: (_) => CartProvider([]),
           update: (context, productProvider, cartProvider) {
             return cartProvider!..updateProducts(productProvider.products);
           },
@@ -29,6 +33,8 @@ void main() {
             return favoritesProvider!;
           },
         ),
+        /// ✅ Now locator() works because setupLocator() was already called
+        ChangeNotifierProvider(create: (_) => AuthProvider(locator())),
       ],
       child: const MyApp(),
     ),
@@ -48,7 +54,6 @@ class MyApp extends StatelessWidget {
         '/login': (context) => const LoginScreen(),
         '/': (context) => const MainNavigation(),
         '/cart': (context) => const CartPage(),
-        // Uncomment the next line if you add the FavoritesPage later
         // '/favorites': (context) => const FavoritesPage(),
       },
       onUnknownRoute: (settings) => MaterialPageRoute(
