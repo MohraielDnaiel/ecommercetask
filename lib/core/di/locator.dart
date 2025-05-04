@@ -1,5 +1,5 @@
 import 'package:flutterapp/core/network/api_services.dart';
-import 'package:flutterapp/presentation/pages/auth/data/auth_repository.dart';
+import 'package:flutterapp/domain/repositories/auth_repository.dart';
 import 'package:get_it/get_it.dart';
 
 

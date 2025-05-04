@@ -79,6 +79,12 @@ flutter:
   assets:
    - assets/woman.png
    - assets/models.jpg
+   - assets/c1.jpg
+   - assets/c2.jpg
+   - assets/c3.jpg
+   - assets/c4.jpg
+   - assets/c5.jpg
+   - assets/c6.jpg
     
 
   # The following line ensures that the Material Icons font is

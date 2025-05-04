@@ -18,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
 
   final List<Widget> _screens = [
-    const HomeContent(), // We'll move your existing content here
+    const HomeContent(), 
     const FavoritesPage(),
     const CartPage(),
  
@@ -78,7 +78,7 @@ class HomeContent extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         AppBar(
-          title: const Text('Women', 
+          title: const Text('Stylish', 
                  style: TextStyle(
                    color: Colors.black,
                    fontWeight: FontWeight.bold,
@@ -179,7 +179,7 @@ class HomeContent extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              product.image ?? '',
+                              product.id ?? '',
                               style: const TextStyle(
                                 color: Colors.grey,
                                 fontSize: 12,

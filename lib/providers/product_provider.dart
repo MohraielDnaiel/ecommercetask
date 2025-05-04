@@ -5,17 +5,31 @@ class ProductProvider extends ChangeNotifier {
   final List<Product> _allProducts = [
     Product(
       id: '1',
-      name: 'Red Dress',
-      image: 'assets/woman.png',
+      name: ' Basic Top',
+      image: 'assets/c1.jpg',
       price: 99,
-      description: 'Stylish red dress, perfect for summer.',
+      description: 'Stylish basic top, perfect for summer.',
     ),
     Product(
       id: '2',
-      name: 'Black Jacket',
-      image: 'assets/woman.png',
+      name: 'jeeb',
+      image: 'assets/c2.jpg',
       price: 150,
-      description: 'Warm and elegant black jacket.',
+      description: 'Warm and elegant jeeb ',
+    ),
+      Product(
+      id: '3',
+      name: 'Black top',
+     image: 'assets/c3.jpg',
+      price: 150,
+      description: 'Elegant and classy top .',
+    ),
+      Product(
+      id: '4',
+      name: 'Colored Top',
+      image: 'assets/c4.jpg',
+      price: 150,
+      description: 'classic top.',
     ),
   ];
 

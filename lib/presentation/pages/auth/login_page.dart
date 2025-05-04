@@ -20,12 +20,12 @@ void _handleLogin() async {
   final accessToken = await authProvider.login(
       _emailController.text, _passwordController.text);
 
-  if (accessToken != null) {
-    // Store the access token
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('access_token', accessToken );
+  print('Access token: $accessToken'); // ← Debug
 
-    // Navigate to Home Screen after successful login
+  if (accessToken != null) {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('access_token', accessToken);
+
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (_) => const HomeScreen()),
